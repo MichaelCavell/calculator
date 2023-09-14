@@ -44,6 +44,15 @@ const operatorButtons = document.querySelectorAll('.opBtn');
 const allClear = document.getElementById('clearBtn');
 const equals = document.getElementById('equalBtn');
 const calcNumber = document.getElementById('currentNumber');
+const posToNeg = document.getElementById('posNeg');
+
+posToNeg.addEventListener("click", function() {
+    if (calcNumber.textContent === "Calculate THIS!" || calcNumber.textContent === "CLEAR!" || calcNumber.textContent === "To infinity and beyond!" || calcNumber.textContent === "+" || calcNumber.textContent === "-" || calcNumber.textContent === "*" || calcNumber.textContent === "÷") {
+    return;
+    }
+    displayValue = -displayValue;
+    calcNumber.textContent = -calcNumber.textContent;
+})
 
 allClear.addEventListener("click", function() {
     firstNumber = "";
@@ -90,7 +99,9 @@ operatorButtons.forEach(button => {
             displayValue = "";
             operator = "";
             solution = "";
-        //handle if operator button is pressed before a number button    
+        //handle if operator button is pressed before a number button or "CLEAR!" or "Calculate THIS!"    
+        } else if (calcNumber.textContent === "Calculate THIS!" || calcNumber.textContent === "CLEAR!") {
+            return;
         } else if (calcNumber.textContent === "+" || calcNumber.textContent === "-" || calcNumber.textContent === "*" || calcNumber.textContent === "÷" || calcNumber.textContent === "=") {
             operator = button.innerText;
             calcNumber.textContent = button.innerText;
@@ -136,10 +147,10 @@ operatorButtons.forEach(button => {
 })
 
 equals.addEventListener("click", function() {
-    //modify second number
-    /*if (secondNumber === "") {
+    if (calcNumber.textContent === "Calculate THIS!" || calcNumber.textContent === "CLEAR!" || calcNumber.textContent === "To infinity and beyond!" || calcNumber.textContent === "+" || calcNumber.textContent === "-" || calcNumber.textContent === "*" || calcNumber.textContent === "÷") {
         return;
-    }*/
+        }
+    //modify second number
     if (firstNumber !== "" && solution === "") {
     secondNumber += displayValue;
     //find solution
@@ -163,26 +174,3 @@ equals.addEventListener("click", function() {
 }
 })
 
-/*equals.addEventListener("click", function() {
-//modify second number
-if (displayValue !== "") {
-secondNumber += displayValue;
-//find solution
-let firstNumberInt = parseFloat(firstNumber);
-let secondNumberInt = parseFloat(secondNumber);
-solution = operate(firstNumberInt, operator, secondNumberInt);
-calcNumber.textContent = Math.round(solution * 100) / 100;
-//get ready for more calcs
-firstNumber = Math.round(solution * 100) / 100;
-secondNumber = "";
-displayValue = "=";
-solution = "";
-}
-})
-
-if (displayValue === "=") {
-    displayValue = "";
-    operator = button.innerText;
-    calcNumber.textContent = button.innerText;
-
-    */
