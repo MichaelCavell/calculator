@@ -52,6 +52,7 @@ posToNeg.addEventListener("click", function() {
     }
     displayValue = -displayValue;
     calcNumber.textContent = -calcNumber.textContent;
+    firstNumber = -firstNumber;
 })
 
 allClear.addEventListener("click", function() {
