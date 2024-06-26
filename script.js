@@ -8,6 +8,14 @@ function multiply(first, second) {
     return first * second
 }
 function divide(first, second) {
+    if (second === 0) {
+        display.textContent = 'l o l';
+        active = false;
+        displayValue = '0';
+        firstNumberEntered = false
+        secondNumberEntered = false;
+        return;
+    }
     return first / second
 }
 
@@ -30,7 +38,17 @@ function operate(first, operator, second) {
         operator = divide;
     }
 
-    return operator(first, second);
+    let result = operator(first, second);
+
+    if (result % 1 != 0) {
+        result = result.toFixed(11 - digits(result));
+    }
+
+    return result;
+}
+
+function digits(num) {
+    return Math.floor(Math.log10(num) + 1);
 }
 
 const display = document.querySelector('.display');
@@ -93,6 +111,7 @@ equals.addEventListener('click', function() {
         displayValue = firstNumber
         secondNumber = ''
         firstNumberEntered = false;
+        active = false;
     }
 })
 
