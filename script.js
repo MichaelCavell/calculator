@@ -1,8 +1,25 @@
-// A calculator operation will consist of a number, an operator, and another 
-// number. For example, 3 + 5. Create three variables for each of the parts of a 
-// calculator operation. Create a variable for the first number, the operator, and 
-// the second number. You’ll use these variables to update your display later.
+function add(first, second) {
+    return first + second
+}
+function subtract(first, second) {
+    return first - second
+}
+function multiply(first, second) {
+    return first * second
+}
+function divide(first, second) {
+    return first / second
+}
+
+console.log(add(2, 3));
+console.log(subtract(2, 3));
+console.log(multiply(2, 3));
+console.log(divide(2, 3));
 
 let firstNumber;
 let operator;
 let secondNumber;
+
+function operate(firstNumber, operator, secondNumber) {
+
+}
