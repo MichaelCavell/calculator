@@ -1,4 +1,4 @@
-Here are some use cases (abilities this calculator will need to have):
+Here are some use cases (abilities this calculator will have):
 
 This calculator is going to contain functions for all of the basic math 
 operators you typically find on calculators, including:
