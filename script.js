@@ -20,6 +20,11 @@ let firstNumber;
 let operator;
 let secondNumber;
 
-function operate(firstNumber, operator, secondNumber) {
-
+function operate(first, operator, second) {
+    return operator(first, second);
 }
+
+console.log(operate(2, add, 3))
+console.log(operate(2, subtract, 3))
+console.log(operate(2, multiply, 3))
+console.log(operate(2, add, 3))
