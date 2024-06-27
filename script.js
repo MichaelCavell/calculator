@@ -59,6 +59,7 @@ const numbers = document.querySelectorAll('.number');
 const operators = document.querySelectorAll('.operator');
 const ac = document.querySelector('.ac');
 const equals = document.querySelector('.equals');
+const plusMinusButton = document.querySelector('.plus-minus');
 
 function updateDisplayValue(e) {
     if (active === false) {
@@ -104,6 +105,23 @@ function updateNumbers(e) {
         active = false;
     } 
 }
+
+function plusMinus(num) {
+    if (num > 0) {
+        return -Math.abs(num);
+    } else if (num < 0) {
+        return Math.abs(num);
+    } else {
+        return 0;
+    }
+}
+
+plusMinusButton.addEventListener('click', function() {
+    if (active) {
+        displayValue = plusMinus(displayValue);
+        display.textContent = displayValue;
+    }
+})
 
 ac.addEventListener('click', clearDisplay);
 
