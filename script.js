@@ -14,6 +14,8 @@ function divide(first, second) {
         displayValue = '0';
         firstNumberEntered = false
         secondNumberEntered = false;
+        firstNumber = '';
+        secondNumber = '';
         return 'l o l';
     }
 
