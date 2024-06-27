@@ -14,8 +14,9 @@ function divide(first, second) {
         displayValue = '0';
         firstNumberEntered = false
         secondNumberEntered = false;
-        return;
+        return 'l o l';
     }
+
     return first / second
 }
 
@@ -40,7 +41,7 @@ function operate(first, operator, second) {
 
     let result = operator(first, second);
 
-    if (result % 1 != 0) {
+    if (result % 1 != 0 && typeof result === 'number') {
         result = result.toFixed(11 - digits(result));
     }
 
@@ -63,9 +64,9 @@ function updateDisplayValue(e) {
         displayValue = '';
     }
 
-    if (firstNumberEntered === true && secondNumberEntered === true) {
-        display.textContent = firstNumber
-    }
+    // if (firstNumberEntered === true && secondNumberEntered === true) {
+    //     display.textContent = firstNumber
+    // }
     
     displayValue += e.target.innerText;
     display.textContent = displayValue;
@@ -82,6 +83,7 @@ function clearDisplay() {
 function updateNumbers(e) {
     if (firstNumberEntered === false && secondNumberEntered === false) {
         firstNumber = Number(displayValue);
+        secondNumber = Number(displayValue);
         operator = e.target.innerText;
         firstNumberEntered = true;
         active = false;
@@ -104,13 +106,14 @@ function updateNumbers(e) {
 ac.addEventListener('click', clearDisplay);
 
 equals.addEventListener('click', function() {
-    if (firstNumberEntered && active) {
+    if (firstNumberEntered) {
         secondNumber = Number(displayValue);
         firstNumber = operate(firstNumber, operator, secondNumber);
         display.textContent = firstNumber;
         displayValue = firstNumber
         secondNumber = ''
         firstNumberEntered = false;
+        secondNumberEntered = false;
         active = false;
     }
 })
