@@ -5,7 +5,7 @@ function subtract(first, second) {
     return first - second
 }
 function multiply(first, second) {
-    return first * second
+    return result = round(first) * round(second);
 }
 function divide(first, second) {
     if (second === 0) {
@@ -42,16 +42,7 @@ function operate(first, operator, second) {
     }
 
     let result = operator(first, second);
-
-    if (result % 1 != 0 && typeof result === 'number') {
-        result = result.toFixed(11 - digits(result));
-    }
-
     return result;
-}
-
-function digits(num) {
-    return Math.floor(Math.log10(num) + 1);
 }
 
 const display = document.querySelector('.display');
@@ -60,16 +51,14 @@ const operators = document.querySelectorAll('.operator');
 const ac = document.querySelector('.ac');
 const equals = document.querySelector('.equals');
 const plusMinusButton = document.querySelector('.plus-minus');
+const percentButton = document.querySelector('.percent');
+
 
 function updateDisplayValue(e) {
     if (active === false) {
         active = true;
         displayValue = '';
     }
-
-    // if (firstNumberEntered === true && secondNumberEntered === true) {
-    //     display.textContent = firstNumber
-    // }
     
     displayValue += e.target.innerText;
     display.textContent = displayValue;
@@ -116,11 +105,32 @@ function plusMinus(num) {
     }
 }
 
-plusMinusButton.addEventListener('click', function() {
+function round(num) {
+    return parseFloat(Number(num).toFixed(3));
+}
+
+function percent(num) {
+    let decimal = ((num.toString().split('.')[1]));
+    if (decimal) {
+        if (decimal.length >= 4) {
+            return num;
+        }
+    }
+
+    let percent = operate(num, '*', .01);
+    return percent;
+}
+
+percentButton.addEventListener('click', function() {
     if (active) {
-        displayValue = plusMinus(displayValue);
+        displayValue = percent(displayValue);
         display.textContent = displayValue;
     }
+})
+
+plusMinusButton.addEventListener('click', function() {
+    displayValue = plusMinus(displayValue);
+    display.textContent = displayValue;
 })
 
 ac.addEventListener('click', clearDisplay);

@@ -21,12 +21,6 @@
     box-shadow: 10px 10px 7px lightgrey;
 }
 
-@media (max-width: 500px) {
-    .calculator {
-        max-width: 315px;
-    }
-  }
-
 .display {
     background-color: lightgrey;
     border: black solid 3px;
@@ -37,8 +31,18 @@
     align-items: center;
     justify-content: end;
     padding-right: 5px;
-    font-size: 3rem;
+    font-size: 2rem;
 }
+
+@media (max-width: 500px) {
+    .calculator {
+        max-width: 315px;
+    }
+
+    .display {
+        font-size: 1.5rem;
+    }
+  }
 
 button {
     height: 50px;
