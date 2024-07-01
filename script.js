@@ -41,7 +41,7 @@ function operate(first, operator, second) {
         operator = divide;
     }
 
-    let result = operator(first, second);
+    let result = operator(Number(first), Number(second));
     return result;
 }
 
@@ -52,6 +52,7 @@ const ac = document.querySelector('.ac');
 const equals = document.querySelector('.equals');
 const plusMinusButton = document.querySelector('.plus-minus');
 const percentButton = document.querySelector('.percent');
+const decimalButton = document.querySelector('.decimal');
 
 
 function updateDisplayValue(e) {
@@ -146,6 +147,13 @@ equals.addEventListener('click', function() {
         secondNumberEntered = false;
         active = false;
     }
+})
+
+decimalButton.addEventListener('click', function(e) {
+    if ((displayValue.toString().split('.')[1]) !== undefined) {
+        return;
+    }
+    updateDisplayValue(e)
 })
 
 numbers.forEach((number) => {
