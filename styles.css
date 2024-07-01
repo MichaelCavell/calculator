@@ -109,3 +109,7 @@ button {
 .backspace-button {
     flex: 1 1 25%;
 }
+
+.active {
+    border: black 3px solid;
+}

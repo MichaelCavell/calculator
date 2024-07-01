@@ -18,7 +18,7 @@ function divide(first, second) {
         secondNumber = '';
         return 'l o l';
     }
-    return round(first) / round(second)
+    return round(round(first) / round(second))
 }
 
 let firstNumber = 0;
@@ -47,7 +47,7 @@ const display = document.querySelector('.display');
 const numbers = document.querySelectorAll('.number');
 const operators = document.querySelectorAll('.operator');
 const ac = document.querySelector('.ac');
-const equals = document.querySelector('.equals');
+const equalsButton = document.querySelector('.equals');
 const plusMinusButton = document.querySelector('.plus-minus');
 const percentButton = document.querySelector('.percent');
 const decimalButton = document.querySelector('.decimal');
@@ -64,7 +64,18 @@ function updateDisplayValue(e) {
     display.textContent = displayValue;
 }
 
+function keyboardUpdateDisplayValue(key) {
+    if (active === false) {
+        active = true;
+        displayValue = '';
+    }
+    
+    displayValue += key;
+    display.textContent = displayValue;
+} 
+
 function clearDisplay() {
+    operators.forEach(operator => operator.classList.remove('active'));
     active = false;
     displayValue = '0';
     display.textContent = displayValue;
@@ -72,7 +83,13 @@ function clearDisplay() {
     secondNumberEntered = false;
 }
 
+function makeActive(e){
+    operators.forEach(operator => operator.classList.remove('active'));
+    e.target.classList.add('active');
+}
+
 function updateNumbers(e) {
+    operators.forEach(operator => operator.classList.remove('active'));
     if (firstNumberEntered === false && secondNumberEntered === false) {
         firstNumber = Number(displayValue);
         secondNumber = Number(displayValue);
@@ -91,6 +108,30 @@ function updateNumbers(e) {
         firstNumber = operate(firstNumber, operator, secondNumber);
         display.textContent = firstNumber;
         operator = e.target.innerText;
+        active = false;
+    } 
+}
+
+function keyboardUpdateNumbers(key) {
+    operators.forEach(operator => operator.classList.remove('active'));
+    if (firstNumberEntered === false && secondNumberEntered === false) {
+        firstNumber = Number(displayValue);
+        secondNumber = Number(displayValue);
+        operator = key;
+        firstNumberEntered = true;
+        active = false;
+    } else if (firstNumberEntered === true && secondNumberEntered === false) {
+        secondNumber = Number(displayValue);
+        secondNumberEntered = true;
+        firstNumber = operate(firstNumber, operator, secondNumber);
+        display.textContent = firstNumber;
+        operator = key;
+        active = false;
+    } else if (firstNumberEntered === true && secondNumberEntered === true) {
+        secondNumber = Number(displayValue);
+        firstNumber = operate(firstNumber, operator, secondNumber);
+        display.textContent = firstNumber;
+        operator = key;
         active = false;
     } 
 }
@@ -133,7 +174,7 @@ plusMinusButton.addEventListener('click', function() {
     display.textContent = displayValue;
 })
 
-backspaceButton.addEventListener('click', function() {
+function backspace() {
     if (displayValue.toString().length === 1) {
         displayValue = 0;
         display.textContent = displayValue;
@@ -143,12 +184,15 @@ backspaceButton.addEventListener('click', function() {
         displayValue = displayValue.toString().slice(0, -1);
         display.textContent = displayValue;
         active = true;
-    }
-})
+    } 
+}
+
+backspaceButton.addEventListener('click', backspace);
 
 ac.addEventListener('click', clearDisplay);
 
-equals.addEventListener('click', function() {
+function equals() {
+    operators.forEach(operator => operator.classList.remove('active'));
     if (firstNumberEntered) {
         secondNumber = Number(displayValue);
         firstNumber = operate(firstNumber, operator, secondNumber);
@@ -158,15 +202,26 @@ equals.addEventListener('click', function() {
         firstNumberEntered = false;
         secondNumberEntered = false;
         active = false;
-    }
-})
+    } 
+}
 
-decimalButton.addEventListener('click', function(e) {
+equalsButton.addEventListener('click', equals)
+
+function decimal(e) {
     if ((displayValue.toString().split('.')[1]) !== undefined) {
         return;
     }
     updateDisplayValue(e)
-})
+}
+
+function keyboardDecimal(key) {
+    if ((displayValue.toString().split('.')[1]) !== undefined) {
+        return;
+    }
+    keyboardUpdateDisplayValue(key)
+}
+
+decimalButton.addEventListener('click', decimal);
 
 numbers.forEach((number) => {
     number.addEventListener('click', updateDisplayValue);  
@@ -174,6 +229,47 @@ numbers.forEach((number) => {
 
 operators.forEach((operator) => {
     operator.addEventListener('click', updateNumbers);  
+})
+
+operators.forEach((operator) => {
+    operator.addEventListener('click', makeActive);  
+})
+
+addEventListener('keydown', (e) => {
+    let operatorSymbols = ['+', '-', '*', '/']
+    if (operatorSymbols.includes(e.key)) {
+        keyboardUpdateNumbers(e.key);
+        operators.forEach(operator => operator.classList.remove('active'));
+        Array.from(operators).map((operator) => {
+            if (operator.classList.contains(e.key)) {
+                operator.classList.add('active');
+            }
+        })
+    }
+
+    let numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
+    if (numbers.includes(Number(e.key))) {
+        keyboardUpdateDisplayValue(e.key)
+    }
+    
+    if (e.key === 'Enter' || e.key === '=') {
+        equals();
+    }
+
+    if (e.key === 'Backspace') {
+        backspace();
+    }
+    
+    if (e.key === '.') {
+        keyboardDecimal(e.key);
+    }
+
+    if (e.key === '%') {
+        if (active) {
+            displayValue = percent(displayValue);
+            display.textContent = displayValue;
+        }
+    }
 })
 
 display.textContent = displayValue;
