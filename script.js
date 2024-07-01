@@ -152,6 +152,7 @@ function round(num) {
 
 function percent(num) {
     let decimal = ((num.toString().split('.')[1]));
+    console.log(num);
     if (decimal) {
         if (decimal.length >= 4) {
             return num;
@@ -159,6 +160,14 @@ function percent(num) {
     }
 
     let percent = operate(num, '*', .01);
+    let newDecimal = ((percent.toString().split('.')[1]))
+    if (newDecimal) {
+        console.log(newDecimal.length)
+        if (newDecimal.length > 4) {
+            return num;
+        }
+    }
+
     return percent;
 }
 
