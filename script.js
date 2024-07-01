@@ -1,11 +1,11 @@
 function add(first, second) {
-    return first + second
+    return round(first) + round(second)
 }
 function subtract(first, second) {
-    return first - second
+    return round(first) - round(second)
 }
 function multiply(first, second) {
-    return result = round(first) * round(second);
+    return round(first) * round(second);
 }
 function divide(first, second) {
     if (second === 0) {
@@ -18,8 +18,7 @@ function divide(first, second) {
         secondNumber = '';
         return 'l o l';
     }
-
-    return first / second
+    return round(first) / round(second)
 }
 
 let firstNumber = 0;
@@ -41,8 +40,7 @@ function operate(first, operator, second) {
         operator = divide;
     }
 
-    let result = operator(Number(first), Number(second));
-    return result;
+    return operator(Number(first), Number(second));
 }
 
 const display = document.querySelector('.display');
@@ -53,6 +51,7 @@ const equals = document.querySelector('.equals');
 const plusMinusButton = document.querySelector('.plus-minus');
 const percentButton = document.querySelector('.percent');
 const decimalButton = document.querySelector('.decimal');
+const backspaceButton = document.querySelector('.backspace-button');
 
 
 function updateDisplayValue(e) {
@@ -132,6 +131,19 @@ percentButton.addEventListener('click', function() {
 plusMinusButton.addEventListener('click', function() {
     displayValue = plusMinus(displayValue);
     display.textContent = displayValue;
+})
+
+backspaceButton.addEventListener('click', function() {
+    if (displayValue.toString().length === 1) {
+        displayValue = 0;
+        display.textContent = displayValue;
+        active = false;
+    } else {
+        active = false;
+        displayValue = displayValue.toString().slice(0, -1);
+        display.textContent = displayValue;
+        active = true;
+    }
 })
 
 ac.addEventListener('click', clearDisplay);

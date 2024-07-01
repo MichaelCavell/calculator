@@ -91,3 +91,21 @@ button {
 .bottom-row > button {
     flex: 1 1 25%; 
 }
+
+.backspace {
+    display: flex;
+    align-items: center;
+}
+
+.backspace-left {
+    flex: 3 1 75%;
+    display: flex;
+    background: transparent;
+    font-size: 1.5rem;
+    color: white;
+    justify-content: center
+}
+
+.backspace-button {
+    flex: 1 1 25%;
+}
