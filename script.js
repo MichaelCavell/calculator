@@ -163,10 +163,8 @@ function percent(num) {
 }
 
 percentButton.addEventListener('click', function() {
-    if (active) {
-        displayValue = percent(displayValue);
-        display.textContent = displayValue;
-    }
+    displayValue = percent(displayValue);
+    display.textContent = displayValue;
 })
 
 plusMinusButton.addEventListener('click', function() {
@@ -265,10 +263,8 @@ addEventListener('keydown', (e) => {
     }
 
     if (e.key === '%') {
-        if (active) {
-            displayValue = percent(displayValue);
-            display.textContent = displayValue;
-        }
+        displayValue = percent(displayValue);
+        display.textContent = displayValue;
     }
 })
 
