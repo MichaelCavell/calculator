@@ -167,14 +167,7 @@ function round(num) {
 }
 
 function percent(num) {
-    let percent = (round(num) / 100) * 10;
-    let rounded = round(percent);
-
-    if (rounded == 0) {
-        return num;
-    }
-
-    return rounded;
+    return round(operate(operate(num, '/', 100), '*', 10));
 }
 
 percentButton.addEventListener('click', function() {
