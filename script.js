@@ -9,7 +9,7 @@ function multiply(first, second) {
 }
 function divide(first, second) {
     if (second === 0) {
-        display.textContent = 'l o l';
+        updateDisplay('l o l');
         active = false;
         displayValue = '0';
         firstNumberEntered = false
@@ -53,6 +53,10 @@ const percentButton = document.querySelector('.percent');
 const decimalButton = document.querySelector('.decimal');
 const backspaceButton = document.querySelector('.backspace-button');
 
+function updateDisplay(value) {
+    display.textContent = value;
+}
+
 
 function updateDisplayValue(e) {
     if (active === false) {
@@ -69,7 +73,7 @@ function updateDisplayValue(e) {
     }
     
     displayValue += e.target.innerText;
-    display.textContent = displayValue;
+    updateDisplay(displayValue);
 }
 
 function keyboardUpdateDisplayValue(key) {
@@ -87,14 +91,14 @@ function keyboardUpdateDisplayValue(key) {
     }
     
     displayValue += key;
-    display.textContent = displayValue;
+    updateDisplay(displayValue)
 } 
 
 function clearDisplay() {
     operators.forEach(operator => operator.classList.remove('active'));
     active = false;
     displayValue = '0';
-    display.textContent = displayValue;
+    updateDisplay(displayValue)
     firstNumberEntered = false
     secondNumberEntered = false;
 }
@@ -116,13 +120,13 @@ function updateNumbers(e) {
         secondNumber = Number(displayValue);
         secondNumberEntered = true;
         firstNumber = operate(firstNumber, operator, secondNumber);
-        display.textContent = firstNumber;
+        updateDisplay(firstNumber);
         operator = e.target.innerText;
         active = false;
     } else if (firstNumberEntered === true && secondNumberEntered === true) {
         secondNumber = Number(displayValue);
         firstNumber = operate(firstNumber, operator, secondNumber);
-        display.textContent = firstNumber;
+        updateDisplay(firstNumber);
         operator = e.target.innerText;
         active = false;
     } 
@@ -140,13 +144,13 @@ function keyboardUpdateNumbers(key) {
         secondNumber = Number(displayValue);
         secondNumberEntered = true;
         firstNumber = operate(firstNumber, operator, secondNumber);
-        display.textContent = firstNumber;
+        updateDisplay(firstNumber);
         operator = key;
         active = false;
     } else if (firstNumberEntered === true && secondNumberEntered === true) {
         secondNumber = Number(displayValue);
         firstNumber = operate(firstNumber, operator, secondNumber);
-        display.textContent = firstNumber;
+        updateDisplay(firstNumber);
         operator = key;
         active = false;
     } 
@@ -172,23 +176,23 @@ function percent(num) {
 
 percentButton.addEventListener('click', function() {
     displayValue = percent(displayValue);
-    display.textContent = displayValue;
+    updateDisplay(displayValue);
 })
 
 plusMinusButton.addEventListener('click', function() {
     displayValue = plusMinus(displayValue);
-    display.textContent = displayValue;
+    updateDisplay(displayValue);
 })
 
 function backspace() {
     if (displayValue.toString().length === 1) {
         displayValue = 0;
-        display.textContent = displayValue;
+        updateDisplay(displayValue);
         active = false;
     } else {
         active = false;
         displayValue = displayValue.toString().slice(0, -1);
-        display.textContent = displayValue;
+        updateDisplay(displayValue);
         active = true;
     } 
 }
@@ -202,7 +206,7 @@ function equals() {
     if (firstNumberEntered) {
         secondNumber = Number(displayValue);
         firstNumber = operate(firstNumber, operator, secondNumber);
-        display.textContent = firstNumber;
+        updateDisplay(firstNumber);
         displayValue = firstNumber
         secondNumber = ''
         firstNumberEntered = false;
@@ -272,9 +276,8 @@ addEventListener('keydown', (e) => {
 
     if (e.key === '%') {
         displayValue = percent(displayValue);
-        display.textContent = displayValue;
+        updateDisplay(displayValue)
     }
 })
 
-display.textContent = displayValue;
-
+updateDisplay(displayValue)
