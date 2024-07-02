@@ -174,12 +174,12 @@ function percent(num) {
             percent = round(percent);
         }
     }
-
-    if (percent > 0) {
-        return percent;
+    
+    if (percent === 0) {
+        return num;
     }
 
-    return num;
+    return percent;
 }
 
 percentButton.addEventListener('click', function() {
