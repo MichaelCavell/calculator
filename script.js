@@ -167,19 +167,14 @@ function round(num) {
 }
 
 function percent(num) {
-    let percent = (num / 100) * 10;
-    let decimal = ((num.toString().split('.')[1]));
-    if (decimal) {
-        if (decimal.length >= 2) {
-            percent = round(percent);
-        }
-    }
-    
-    if (percent === 0) {
+    let percent = (round(num) / 100) * 10;
+    let rounded = round(percent);
+
+    if (rounded == 0) {
         return num;
     }
 
-    return percent;
+    return rounded;
 }
 
 percentButton.addEventListener('click', function() {
