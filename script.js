@@ -18,7 +18,7 @@ function divide(first, second) {
         secondNumber = '';
         return 'l o l';
     }
-    return round(round(first) / round(second))
+    return round(first) / round(second)
 }
 
 let firstNumber = 0;
@@ -59,6 +59,14 @@ function updateDisplayValue(e) {
         active = true;
         displayValue = '';
     }
+
+    if (displayValue.length === 0 && e.target.innerText == 0) {
+        return;
+    }
+
+    if (displayValue.length >= 22 && displayValue) {
+        return;
+    }
     
     displayValue += e.target.innerText;
     display.textContent = displayValue;
@@ -68,6 +76,14 @@ function keyboardUpdateDisplayValue(key) {
     if (active === false) {
         active = true;
         displayValue = '';
+    }
+
+    if (displayValue.length === 0 && key == 0) {
+        return;
+    }
+
+    if (displayValue.length >= 22 && displayValue) {
+        return;
     }
     
     displayValue += key;
@@ -151,24 +167,19 @@ function round(num) {
 }
 
 function percent(num) {
+    let percent = (num / 100) * 10;
     let decimal = ((num.toString().split('.')[1]));
-    console.log(num);
     if (decimal) {
-        if (decimal.length >= 4) {
-            return num;
+        if (decimal.length >= 2) {
+            percent = round(percent);
         }
     }
 
-    let percent = operate(num, '*', .01);
-    let newDecimal = ((percent.toString().split('.')[1]))
-    if (newDecimal) {
-        console.log(newDecimal.length)
-        if (newDecimal.length > 4) {
-            return num;
-        }
+    if (percent > 0) {
+        return percent;
     }
 
-    return percent;
+    return num;
 }
 
 percentButton.addEventListener('click', function() {
